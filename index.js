@@ -1,4 +1,4 @@
-console.log("Olá, mundo! Este é um exemplo de código JavaScript.");
+console.log("Olá, mundo!");
 console.log("Este é um exemplo de código JavaScript.");
 console.log("Estou aprendendo a usar o console.log para imprimir mensagens no console.");
 console.log("A função console.log é muito útil para depuração e rastreamento de código.");  
