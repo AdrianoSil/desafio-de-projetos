@@ -1,41 +1,90 @@
-﻿# desafio-logica-inicial
-# GFT Start #6 - Lógica de Programação (DIO)
+﻿// Importando o módulo readline para interações com o terminal
+const readline = require("readline");
 
-/*  Entendendo o Desafio
-## Objetivo
+// Criando a interface de entrada/saída do terminal
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-## Para executar no terminal digite 
-node heroi.js
+// Lista com nomes fictícios de heróis
+const nomesDosHerois = [
+    "Gandalf", "Sméagol", "Frodo", "Bilbo", "Aragorn",
+    "Sauron", "Galadriel", "Saruman", "Gimli"
+];
 
+// Lista com os níveis de experiência
+const niveisDeXp = [
+    "Ferro", "Bronze", "Prata", "Ouro", "Diamante",
+    "Platina", "Ascendente", "Imortal", "Radiante"
+];
 
-Crie uma variável para armazenar o nome e a quantidade de experiência (XP) de um herói, 
-depois utilize uma estrutura de decisão para apresentar alguma das mensagens abaixo:
+// Lista com os limites máximos de XP para cada nível correspondente
+const limitesXp = [1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000];
 
-Se XP for menor do que 1000 = Ferro
-Se XP for entre 1.001 e 2000 = Bronze
-Se XP for entre 2.001 e 3.000 = Prata
-Se XP for entre 3.001 e 4.000 = Ouro
-Se XP for entre 4.001 e 5.000 = Diamante
-Se XP for entre 5.001 e 7.000 = Platina
-Se XP for entre 7.001 e 8.000 = Ascendente
-Se XP for entre 8.001 e 10.000= Imortal
-Se XP for maior ou igual a 10.001 = Radiante
+// Função que gera um número aleatório de XP entre 0 e 11999
+function gerarXpAleatorio() {
+    return Math.floor(Math.random() * 12000);
+}
 
-## Saída
+// Função que determina o nível do herói com base em seu XP
+function determinarNivelHeroi(xp) {
+    for (let i = 0; i < limitesXp.length; i++) {
+        if (xp <= limitesXp[i]) {
+            return niveisDeXp[i];
+        }
+    }
+    // Se o XP for maior que todos os limites, retorna o último nível (Radiante)
+    return niveisDeXp[niveisDeXp.length - 1];
+}
 
-Ao final deve se exibir uma mensagem:
-"O Herói de nome **{nome}** está no nível de **{nivel}**"
+// Função que escolhe um nome aleatório da lista de heróis
+function escolherNomeAleatorio() {
+    const indice = Math.floor(Math.random() * nomesDosHerois.length);
+    return nomesDosHerois[indice];
+}
 
-Construir um 
+// Função principal que gerencia o fluxo do programa
+function main() {
 
-Instruções para entrega
-# 1️⃣ Desafio Classificador de nível de Herói
+    // Solicita ao usuário o tipo de entrada de XP
+    function perguntarOpcao() {
+        rl.question("Digite 1 para inserir XP manualmente ou 2 para gerar aleatório: ", function (opcao) {
+            if (opcao === "1") {
+                rl.question("Digite o valor de XP do herói: ", function (inputXp) {
+                    const xp = parseInt(inputXp);
+                    if (isNaN(xp)) {
+                        console.log("Valor inválido. Digite um número.\n");
+                        perguntarOpcao();
+                    } else {
+                        processarHeroi(xp);
+                    }
+                });
+            } else if (opcao === "2") {
+                const xp = gerarXpAleatorio();
+                console.log(`XP gerado aleatoriamente: ${xp}`);
+                processarHeroi(xp);
+            } else {
+                console.log("Opção inválida! Por favor, digite 1 ou 2.\n");
+                perguntarOpcao();
+            }
+        });
+    }
 
-**O Que deve ser utilizado**
+    // Processa e exibe o resultado final com nome e nível do herói
+    function processarHeroi(xp) {
+        const nomeHeroi = escolherNomeAleatorio();
+        const nivel = determinarNivelHeroi(xp);
 
-- Variáveis
-- Operadores
-- Laços de repetição
-- Estruturas de decisões
- 
-*/
+        // Nova mensagem de saída personalizada
+        console.log(`\nO Herói de nome ${nomeHeroi} está no nível de ${nivel}.\n`);
+
+        rl.close();
+    }
+
+    // Inicia a aplicação
+    perguntarOpcao();
+}
+
+// Executa o programa
+main();
