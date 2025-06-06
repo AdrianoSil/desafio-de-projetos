@@ -1,90 +1,56 @@
-﻿// Importando o módulo readline para interações com o terminal
-const readline = require("readline");
+﻿# 1️⃣ Desafio Classificador de nível de Herói
 
-// Criando a interface de entrada/saída do terminal
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+**O Que deve ser utilizado**
 
-// Lista com nomes fictícios de heróis
-const nomesDosHerois = [
-    "Gandalf", "Sméagol", "Frodo", "Bilbo", "Aragorn",
-    "Sauron", "Galadriel", "Saruman", "Gimli"
-];
+- Variáveis
+- Operadores
+- Laços de repetição
+- Estruturas de decisões
 
-// Lista com os níveis de experiência
-const niveisDeXp = [
-    "Ferro", "Bronze", "Prata", "Ouro", "Diamante",
-    "Platina", "Ascendente", "Imortal", "Radiante"
-];
+## Objetivo
 
-// Lista com os limites máximos de XP para cada nível correspondente
-const limitesXp = [1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000];
+Crie uma variável para armazenar o nome e a quantidade de experiência (XP) de um herói, depois utilize uma estrutura de decisão para apresentar alguma das mensagens abaixo:
 
-// Função que gera um número aleatório de XP entre 0 e 11999
-function gerarXpAleatorio() {
-    return Math.floor(Math.random() * 12000);
-}
+Se XP for menor do que 1.000 = Ferro
+Se XP for entre 1.001 e 2.000 = Bronze
+Se XP for entre 2.001 e 5.000 = Prata
+Se XP for entre 5.001 e 7.000 = Ouro
+Se XP for entre 7.001 e 8.000 = Platina
+Se XP for entre 8.001 e 9.000 = Ascendente
+Se XP for entre 9.001 e 10.000= Imortal
+Se XP for maior ou igual a 10.001 = Radiante
 
-// Função que determina o nível do herói com base em seu XP
-function determinarNivelHeroi(xp) {
-    for (let i = 0; i < limitesXp.length; i++) {
-        if (xp <= limitesXp[i]) {
-            return niveisDeXp[i];
-        }
-    }
-    // Se o XP for maior que todos os limites, retorna o último nível (Radiante)
-    return niveisDeXp[niveisDeXp.length - 1];
-}
+## Saída
 
-// Função que escolhe um nome aleatório da lista de heróis
-function escolherNomeAleatorio() {
-    const indice = Math.floor(Math.random() * nomesDosHerois.length);
-    return nomesDosHerois[indice];
-}
+Ao final deve se exibir uma mensagem:
+"O Herói de nome **{nome}** está no nível de **{nivel}**"
 
-// Função principal que gerencia o fluxo do programa
-function main() {
 
-    // Solicita ao usuário o tipo de entrada de XP
-    function perguntarOpcao() {
-        rl.question("Digite 1 para inserir XP manualmente ou 2 para gerar aleatório: ", function (opcao) {
-            if (opcao === "1") {
-                rl.question("Digite o valor de XP do herói: ", function (inputXp) {
-                    const xp = parseInt(inputXp);
-                    if (isNaN(xp)) {
-                        console.log("Valor inválido. Digite um número.\n");
-                        perguntarOpcao();
-                    } else {
-                        processarHeroi(xp);
-                    }
-                });
-            } else if (opcao === "2") {
-                const xp = gerarXpAleatorio();
-                console.log(`XP gerado aleatoriamente: ${xp}`);
-                processarHeroi(xp);
-            } else {
-                console.log("Opção inválida! Por favor, digite 1 ou 2.\n");
-                perguntarOpcao();
-            }
-        });
-    }
 
-    // Processa e exibe o resultado final com nome e nível do herói
-    function processarHeroi(xp) {
-        const nomeHeroi = escolherNomeAleatorio();
-        const nivel = determinarNivelHeroi(xp);
+# EXPLICAÇÃO PASSO A PASSO DA SOLUÇÃO
 
-        // Nova mensagem de saída personalizada
-        console.log(`\nO Herói de nome ${nomeHeroi} está no nível de ${nivel}.\n`);
+🪪 Nome do Herói
+Decisão: usar um nome aleatório de um vetor.
 
-        rl.close();
-    }
+Motivo: evita a repetição e torna a saída mais interessante/variada para testes automáticos e demonstrações.
 
-    // Inicia a aplicação
-    perguntarOpcao();
-}
+🧮 Entrada de XP
+Decisão: permitir duas opções: entrada manual ou valor aleatório.
 
-// Executa o programa
-main();
+Motivo: facilita testes e atende diferentes perfis de uso (usuário que quer testar limites ou deixar aleatório).
+
+🧠 Classificação de Nível
+Decisão: usar if/else com intervalos bem definidos.
+
+Motivo: é a forma mais legível e direta para lidar com faixas de valor numéricas sem sobreposição. Exemplo:
+
+📢 Mensagem Final
+Decisão: interpolar strings com template literals.
+
+Motivo: facilita a leitura e evita concatenação excessiva.
+
+console.log(`O Herói de nome ${nome} está no nível de ${nivel}`);
+🔁 Repetição em caso de entrada inválida
+Decisão: usar while para repetir caso a opção não seja 1 ou 2.
+
+Motivo: garante robustez na interação com o usuário, evitando falhas.
