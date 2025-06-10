@@ -50,6 +50,7 @@ Decisão: interpolar strings com template literals.
 Motivo: facilita a leitura e evita concatenação excessiva.
 
 console.log(`O Herói de nome ${nome} está no nível de ${nivel}`);
+
 🔁 Repetição em caso de entrada inválida
 Decisão: usar while para repetir caso a opção não seja 1 ou 2.
 
