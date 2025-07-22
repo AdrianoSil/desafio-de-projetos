@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Definindo o nome do herói
 let nomeDoHeroi = "Aragorn";
 
@@ -29,3 +30,8 @@ if (xp <= 1000) {
 // Mensagem final de saída
 console.log(`O Herói de nome ${nomeDoHeroi} está no nível de ${nivel}`);
 
+=======
+let nome = Adriano
+
+print("Olá mundo, + nome")
+>>>>>>> f389b49 (desafio2 - classificar o ranking do herói)
